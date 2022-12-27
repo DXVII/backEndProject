@@ -3,9 +3,15 @@ const fs = require('fs');
 const http = require('http');
 const url = require('url');
 
+const content_HTML = {'Content-type': 'text/html'};
+const content_JSON = {'Content-type': 'application/json'};
 // -- Files
-const data = fs.readFileSync(`${__dirname}/dev-data/data.json`,'utf-8');
-const productData = JSON.parse(data);
+// const templateOverview = fs.readFileSync(`${__dirname}/templates/template-overview.html`,'utf-8');
+// const templateProduct = fs.readFileSync(`${__dirname}/templates/template-product.html`,'utf-8');
+// const templateCard = fs.readFileSync(`${__dirname}/templates/template-card.html`,'utf-8');
+
+const data = fs.readFileSync(`./dev-data/data.json`,'utf-8');
+const dataObj = JSON.parse(data);
 
 // -- Server
 // create callback function server for every single request call
@@ -15,7 +21,7 @@ const server = http.createServer((req, res) => {
     // -- Overview Page
     if (pathName === "/" || pathName === "/overview"){
         let message = "<h1>Navigating to Overview</h1>";
-        res.writeHead(200);
+        res.writeHead(200, content_HTML);
         res.end(`Hello from the server!\n  Path detected: ${pathName}\n${message}`);
     } 
 
@@ -25,12 +31,13 @@ const server = http.createServer((req, res) => {
     }
 
 
-    else if(pathName === "/api"){
-      res.writeHead(200, {
-      'Content-type': 'application/json'
-    });
-    res.end(data);
-    } 
+    // API
+    else if (pathName === '/api') {
+        res.writeHead(200, content_JSON);
+        res.end(data);
+
+    // Not found
+    }
     // else if(pathName === "/api"){
     //     const productData = fs.readFileSync(`./dev-data/data.json`,'utf-8',(err, data) => {
     //         let productData = JSON.parse(data);
@@ -42,7 +49,7 @@ const server = http.createServer((req, res) => {
     // } 
     else {
         let message = "<h1>Page not found</h1>"
-        res.writeHead(404,{'Content-type':'text/html'});
+        res.writeHead(404,content_HTML);
         res.end(`Hello from the server!\n  Path detected: ${pathName}\n${message}`);
     }
     
