@@ -4,44 +4,45 @@ const http = require('http');
 const url = require('url');
 
 // -- Functions
+const fillTemplate = require(`./modules/fillTemplate`);
 
 
-const fillTemplate = (template, jsonInstance) => {
-    const templateVars = ['ID','PRODUCTNAME','IMAGE','FROM','NUTRIENTS','QUANTITY','PRICE','DESCRIPTION'];
-    const jsonVars = ['id','productName','image','from','nutrients','quantity','price','description'];
-    // fill all 
-    let temp = template;
-    for (let i=0; i<templateVars.length; i++) {
-        let templateRegex = new RegExp(`{%${templateVars[i]}%}`,'g')
-        let jsonKey = jsonVars[i];
-        let jsonValue = jsonInstance[jsonKey];
-        temp = temp.replace(templateRegex, jsonValue);
-    }
-    temp = fillOrganic(temp, jsonInstance.organic);
-    return(temp)
-}
+// const fillTemplate = (template, jsonInstance) => {
+//     const templateVars = ['ID','PRODUCTNAME','IMAGE','FROM','NUTRIENTS','QUANTITY','PRICE','DESCRIPTION'];
+//     const jsonVars = ['id','productName','image','from','nutrients','quantity','price','description'];
+//     // fill all 
+//     let temp = template;
+//     for (let i=0; i<templateVars.length; i++) {
+//         let templateRegex = new RegExp(`{%${templateVars[i]}%}`,'g')
+//         let jsonKey = jsonVars[i];
+//         let jsonValue = jsonInstance[jsonKey];
+//         temp = temp.replace(templateRegex, jsonValue);
+//     }
+//     temp = fillOrganic(temp, jsonInstance.organic);
+//     return(temp)
+// }
 
-const fillOrganic = (template, ifOrganic)=>{
-    let temp = template;
-    // organic 
-    if(ifOrganic){
-        temp = temp.replace('{%NOT_ORGANIC%}',"organic");
+// const fillOrganic = (template, ifOrganic)=>{
+//     let temp = template;
+//     // organic 
+//     if(ifOrganic){
+//         temp = temp.replace('{%NOT_ORGANIC%}',"organic");
         
-    } else {
-        temp = temp.replace('{%NOT_ORGANIC%}',"not-organic");
+//     } else {
+//         temp = temp.replace('{%NOT_ORGANIC%}',"not-organic");
         
-        // Not organic -- Card
-        if(template.includes('<figure class="card">')){
-            temp = temp.replace('card__detail--organic','card__detail--not-organic');
-            temp = temp.replace("Organic!","Not Organic!");
-        }
-        // Not Organic -- product
-        else {
-            temp = temp.replace("Organic","Not Organic");
-        }
-    }
-    return (temp)
-}
+//         // Not organic -- Card
+//         if(template.includes('<figure class="card">')){
+//             temp = temp.replace('card__detail--organic','card__detail--not-organic');
+//             temp = temp.replace("Organic!","Not Organic!");
+//         }
+//         // Not Organic -- product
+//         else {
+//             temp = temp.replace("Organic","Not Organic");
+//         }
+//     }
+//     return (temp)
+// }
 
 // -- Files
 const tempOverview = fs.readFileSync(`${__dirname}/src/templates/template-overview.html`,'utf-8');
@@ -78,12 +79,12 @@ const server = http.createServer((req, res) => {
     else if(pathName === "/product/" || pathName === "/product"){
         let queryID = parseInt(paramMap.get('id'));
         try {
-            filledProduct = fillTemplate(tempProduct,dataObject[queryID]);
+            filledProduct = fillTemplate(tempProduct, dataObject[queryID]);
         } catch(err){
             filledProduct = tempOverview.replace(`{%PRODUCT_CARDS%}`,cardsHTML);
         }
         res.writeHead(200, content_HTML);
-        fs.writeFileSync(`${__dirname}/txt/filledProductID${queryID}.html`, filledProduct);
+        fs.writeFileSync(`${__dirname}/cache/filledProductID${queryID}.html`, filledProduct);
         res.end(filledProduct);
     }
 
