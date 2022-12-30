@@ -2,56 +2,22 @@
 const fs = require('fs');
 const http = require('http');
 const url = require('url');
+var slugify = require('slugify');
 
 // -- Functions
-const fillTemplate = require(`./modules/fillTemplate`);
+const fillTemplate = require(`./src/modules/fillTemplate`);
 
-
-// const fillTemplate = (template, jsonInstance) => {
-//     const templateVars = ['ID','PRODUCTNAME','IMAGE','FROM','NUTRIENTS','QUANTITY','PRICE','DESCRIPTION'];
-//     const jsonVars = ['id','productName','image','from','nutrients','quantity','price','description'];
-//     // fill all 
-//     let temp = template;
-//     for (let i=0; i<templateVars.length; i++) {
-//         let templateRegex = new RegExp(`{%${templateVars[i]}%}`,'g')
-//         let jsonKey = jsonVars[i];
-//         let jsonValue = jsonInstance[jsonKey];
-//         temp = temp.replace(templateRegex, jsonValue);
-//     }
-//     temp = fillOrganic(temp, jsonInstance.organic);
-//     return(temp)
-// }
-
-// const fillOrganic = (template, ifOrganic)=>{
-//     let temp = template;
-//     // organic 
-//     if(ifOrganic){
-//         temp = temp.replace('{%NOT_ORGANIC%}',"organic");
-        
-//     } else {
-//         temp = temp.replace('{%NOT_ORGANIC%}',"not-organic");
-        
-//         // Not organic -- Card
-//         if(template.includes('<figure class="card">')){
-//             temp = temp.replace('card__detail--organic','card__detail--not-organic');
-//             temp = temp.replace("Organic!","Not Organic!");
-//         }
-//         // Not Organic -- product
-//         else {
-//             temp = temp.replace("Organic","Not Organic");
-//         }
-//     }
-//     return (temp)
-// }
-
-// -- Files
+// -- Import Files
 const tempOverview = fs.readFileSync(`${__dirname}/src/templates/template-overview.html`,'utf-8');
 const tempCard = fs.readFileSync(`${__dirname}/src/templates/template-card.html`,'utf-8');
 const tempProduct = fs.readFileSync(`${__dirname}/src/templates/template-product.html`,'utf-8');
 const data = fs.readFileSync(`${__dirname}/src/dev-data/data.json`,'utf-8');
-const dataObject = JSON.parse(data);
 
+// Global Objects
+const dataObject = JSON.parse(data);
 let cardsHTML = dataObject.map(el => fillTemplate(tempCard, el));
+const slugs = dataObject.map(el => slugify(el.productName, {lower: true}));
+console.log(slugs);
 
 // -- Server
 const content_HTML = {'Content-type': 'text/html'};
