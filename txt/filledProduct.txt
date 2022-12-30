@@ -13,7 +13,7 @@
       href="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/155/ear-of-maize_1f33d.png"
     />
 
-    <title>{%PRODUCTNAME%} {%IMAGE%} /// NODE FARM</title>
+    <title>Goat and Sheep Cheese 🧀 /// NODE FARM</title>
 
     <style>
       *,
@@ -168,7 +168,6 @@
         text-transform: uppercase;
         font-size: 1.8rem;
         color: white;
-        text-align: center;
       }
 
       .product__back:link,
@@ -260,28 +259,14 @@
         margin-left: 1rem;
       }
 
-      .not-organic {
-        position: absolute;
-        top: -4rem;
-        right: -4rem;
-        z-index: 1000;
-        height: 11rem;
-        width: 11rem;
-        background-image: linear-gradient(to bottom, #f2cac3, #e743bb);
-        border-radius: 50%;
-        transform: rotate(15deg);
-        box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.4);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .not-organic h5 {
-        font-weight: 900;
+      .product__not-organic {
+        font-weight: 700;
         text-transform: uppercase;
-        font-size: 1.8rem;
-        color: white;
-        text-align: center;
+        font-size: 1.5rem;
+        background-image: linear-gradient(to right, #f2cac3, #e743bb);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
       }
     </style>
   </head>
@@ -291,36 +276,36 @@
       <h1>🌽 Node Farm 🥦</h1>
 
       <figure class="product">
-        <div class="product__organic {%NOT_ORGANIC%}"><h5>Organic</h5></div>
+        <div class="product__organic not-organic"><h5>Not Organic</h5></div>
         <a href="/overview" class="product__back">
           <span class="emoji-left">👈</span>Back
         </a>
         <div class="product__hero">
-          <span class="product__emoji product__emoji--1">{%IMAGE%}</span>
-          <span class="product__emoji product__emoji--2">{%IMAGE%}</span>
-          <span class="product__emoji product__emoji--3">{%IMAGE%}</span>
-          <span class="product__emoji product__emoji--4">{%IMAGE%}</span>
-          <span class="product__emoji product__emoji--5">{%IMAGE%}</span>
-          <span class="product__emoji product__emoji--6">{%IMAGE%}</span>
-          <span class="product__emoji product__emoji--7">{%IMAGE%}</span>
-          <span class="product__emoji product__emoji--8">{%IMAGE%}</span>
-          <span class="product__emoji product__emoji--9">{%IMAGE%}</span>
+          <span class="product__emoji product__emoji--1">🧀</span>
+          <span class="product__emoji product__emoji--2">🧀</span>
+          <span class="product__emoji product__emoji--3">🧀</span>
+          <span class="product__emoji product__emoji--4">🧀</span>
+          <span class="product__emoji product__emoji--5">🧀</span>
+          <span class="product__emoji product__emoji--6">🧀</span>
+          <span class="product__emoji product__emoji--7">🧀</span>
+          <span class="product__emoji product__emoji--8">🧀</span>
+          <span class="product__emoji product__emoji--9">🧀</span>
         </div>
-        <h2 class="product__name">{%PRODUCTNAME%}</h2>
+        <h2 class="product__name">Goat and Sheep Cheese</h2>
         <div class="product__details">
-          <p><span class="emoji-left">🌍</span>From {%FROM%}</p>
-          <p><span class="emoji-left">❤️</span>{%NUTRIENTS%}</p>
-          <p><span class="emoji-left">📦</span>{%QUANTITY%}</p>
-          <p><span class="emoji-left">💲</span>${%PRICE%}</p>
+          <p><span class="emoji-left">🌍</span>From Portugal</p>
+          <p><span class="emoji-left">❤️</span>Vitamin A, Calcium</p>
+          <p><span class="emoji-left">📦</span>250g</p>
+          <p><span class="emoji-left">🏷</span>5.00€</p>
         </div>
   
         <a href="#" class="product__link">
           <span class="emoji-left">🛒</span>
-          <span>Add to shopping card (${%PRICE%})</span>
+          <span>Add to shopping card (5.00€)</span>
         </a>
   
         <p class="product__description">
-          {%DESCRIPTION%}
+          Creamy and distinct in flavor, goat cheese is a dairy product enjoyed around the world. Goat cheese comes in a wide variety of flavors and textures, from soft and spreadable fresh cheese to salty, crumbly aged cheese. Although it’s made using the same coagulation and separation process as cheese made from cow’s milk, goat cheese differs in nutrient content.
         </p>
       </figure>
       
